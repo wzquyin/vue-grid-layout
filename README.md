@@ -167,7 +167,14 @@ Include the browser-ready bundle (download from [releases](https://github.com/wz
     This is the initial layout of the grid.
 
     The value must be an `Array` of `Object` items. Each item must have `i`, `x`, `y`, `w` and `h` properties. Please refer to `GridItem` documentation below for more informations.
+* **responsiveLayout**
 
+    * type: `Object`
+    * required: `false`
+    * default : `{}`
+
+    Layouts when responsive=true,  exp:{lg:[layout items],md:[layout items]}.
+    The key of this Object is breakpoint, value is the array of layout item (look layout prop)
 * **colNum**
     
     * type: `Number`
