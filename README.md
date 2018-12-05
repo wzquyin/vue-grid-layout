@@ -173,7 +173,10 @@ Include the browser-ready bundle (download from [releases](https://github.com/wz
     * required: `false`
     * default : `{}`
 
-    Layouts when responsive=true,  exp:{lg:[layout items],md:[layout items]}.
+    Layouts when responsive=true,
+    {[key: $Keys<breakpoints>]: Layout} , 
+    eg:{lg:[layout items],md:[layout items]}.
+    
     The key of this Object is breakpoint, value is the array of layout item (look layout prop)
 * **colNum**
     
