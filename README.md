@@ -8,8 +8,8 @@ vue-grid-layout is a grid layout system, like [Gridster](http://dsmorse.github.i
 
 ### **Current version:** 2.3.1 (Supports Vue 2.2+)
 
-### **For Vue 2.1.10 and below use version [2.1.3](https://github.com/jbaysolutions/vue-grid-layout/tree/2.1.3)**
-### **For Vue 1 use version [1.0.3](https://github.com/jbaysolutions/vue-grid-layout/tree/1.0.3)** 
+### **For Vue 2.1.10 and below use version [2.1.3](https://github.com/wzquyin/vue-grid-layout/tree/2.1.3)**
+### **For Vue 1 use version [1.0.3](https://github.com/wzquyin/vue-grid-layout/tree/1.0.3)** 
 
 <br/>
 
@@ -86,7 +86,7 @@ Add to other Vue components
 
 #### browser
 
-Include the browser-ready bundle (download from [releases](https://github.com/jbaysolutions/vue-grid-layout/releases)) in your page. The components will be automatically available.
+Include the browser-ready bundle (download from [releases](https://github.com/wzquyin/vue-grid-layout/releases)) in your page. The components will be automatically available.
 
 ```html
     <script src="vue-grid-layout.umd.min.js"></script>
