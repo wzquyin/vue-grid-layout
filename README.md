@@ -451,6 +451,7 @@ Working example [here](https://jbaysolutions.github.io/vue-grid-layout/examples/
             :margin="[10, 10]"
             :use-css-transforms="true"
             @layout-updated="layoutUpdatedEvent"
+            @responsive-update="responsiveLayoutUpdatedEvent"
     >
 
         <grid-item v-for="item in layout"
@@ -467,6 +468,17 @@ Working example [here](https://jbaysolutions.github.io/vue-grid-layout/examples/
         </grid-item>
     </grid-layout>
 ```` 
+* **responsiveLayoutUpdatedEvent**
+
+    responsive Layout updated event
+
+    Every time the layout has finished updating and positions of all grid-items are recalculated
+
+```javascript
+    responsiveLayoutUpdatedEvent: function (breakpoint, layout) {
+            console.log("responsiveLayoutUpdatedEvent: ", breakpoint, layout)
+        }
+```
 
 * **layoutUpdatedEvent**
 
