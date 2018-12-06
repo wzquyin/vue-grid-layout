@@ -324,6 +324,11 @@ new Vue({
 
         }
     },
+    methods: {
+        responsiveLayoutUpdatedEvent: function (breakpoint, layout) {
+            console.log("responsiveLayoutUpdatedEvent: ", breakpoint, JSON.stringify(layout))
+        },
+    }
     /*
         mounted: function () {
             this.index = this.layout.length;

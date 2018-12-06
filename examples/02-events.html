@@ -44,6 +44,8 @@
                          :is-draggable="true"
                          :is-resizable="true"
                          :vertical-compact="true"
+                         @layout-updated="layoutUpdatedEvent"
+                         @responsive-update="responsiveLayoutUpdatedEvent"
                          :use-css-transforms="true"
             >
                 <grid-item v-for="item in layout"

@@ -1,10 +1,22 @@
 // @flow
-export type LayoutItemRequired = {w: number, h: number, x: number, y: number, i: string};
-export type LayoutItem = LayoutItemRequired &
-                         {minW?: number, minH?: number, maxW?: number, maxH?: number,
-                          moved?: boolean, static?: boolean,
-                          isDraggable?: ?boolean, isResizable?: ?boolean};
-export type Layout = Array<LayoutItem>;
+export type LayoutItemRequired = {
+  w: number,
+  h: number,
+  x: number,
+  y: number,
+  i: string
+};
+export type LayoutItem = LayoutItemRequired & {
+  minW ? : number,
+  minH ? : number,
+  maxW ? : number,
+  maxH ? : number,
+  moved ? : boolean,
+  static ? : boolean,
+  isDraggable ? : ? boolean,
+  isResizable ? : ? boolean
+};
+export type Layout = Array < LayoutItem > ;
 // export type Position = {left: number, top: number, width: number, height: number};
 /*
 export type DragCallbackData = {
@@ -15,7 +27,10 @@ export type DragCallbackData = {
 };
 */
 // export type DragEvent = {e: Event} & DragCallbackData;
-export type Size = {width: number, height: number};
+export type Size = {
+  width: number,
+  height: number
+};
 // export type ResizeEvent = {e: Event, node: HTMLElement, size: Size};
 
 // const isProduction = process.env.NODE_ENV === 'production';
@@ -26,9 +41,10 @@ export type Size = {width: number, height: number};
  * @return {Number}       Bottom coordinate.
  */
 export function bottom(layout: Layout): number {
-  let max = 0, bottomY;
+  let max = 0,
+    bottomY;
   for (let i = 0, len = layout.length; i < len; i++) {
-    bottomY = layout[i]. y + layout[i].h;
+    bottomY = layout[i].y + layout[i].h;
     if (bottomY > max) max = bottomY;
   }
   return max;
@@ -51,7 +67,7 @@ export function cloneLayoutItem(layoutItem: LayoutItem): LayoutItem {
     // These can be null
     isDraggable: layoutItem.isDraggable, isResizable: layoutItem.isResizable
   };*/
-    return JSON.parse(JSON.stringify(layoutItem));
+  return JSON.parse(JSON.stringify(layoutItem));
 }
 
 /**
@@ -78,7 +94,7 @@ export function collides(l1: LayoutItem, l2: LayoutItem): boolean {
  * @return {Array}       Compacted Layout.
  */
 export function compact(layout: Layout, verticalCompact: Boolean): Layout {
-    // Statics go in the compareWith array right away so items flow around them.
+  // Statics go in the compareWith array right away so items flow around them.
   const compareWith = getStatics(layout);
   // We go through the items by row and column.
   const sorted = sortLayoutItemsByRowCol(layout);
@@ -120,7 +136,7 @@ export function compactItem(compareWith: Layout, l: LayoutItem, verticalCompact:
 
   // Move it down, and keep moving it down if it's colliding.
   let collides;
-  while((collides = getFirstCollision(compareWith, l))) {
+  while ((collides = getFirstCollision(compareWith, l))) {
     l.y = collides.y + collides.h;
   }
   return l;
@@ -132,7 +148,9 @@ export function compactItem(compareWith: Layout, l: LayoutItem, verticalCompact:
  * @param  {Array} layout Layout array.
  * @param  {Number} bounds Number of columns.
  */
-export function correctBounds(layout: Layout, bounds: {cols: number}): Layout {
+export function correctBounds(layout: Layout, bounds: {
+  cols: number
+}): Layout {
   const collidesWith = getStatics(layout);
   for (let i = 0, len = layout.length; i < len; i++) {
     const l = layout[i];
@@ -147,7 +165,7 @@ export function correctBounds(layout: Layout, bounds: {cols: number}): Layout {
     else {
       // If this is static and collides with other statics, we must move it down.
       // We have to do something nicer than just letting them overlap.
-      while(getFirstCollision(collidesWith, l)) {
+      while (getFirstCollision(collidesWith, l)) {
         l.y++;
       }
     }
@@ -162,7 +180,7 @@ export function correctBounds(layout: Layout, bounds: {cols: number}): Layout {
  * @param  {String} id     ID
  * @return {LayoutItem}    Item at ID.
  */
-export function getLayoutItem(layout: Layout, id: string): ?LayoutItem {
+export function getLayoutItem(layout: Layout, id: string): ? LayoutItem {
   for (let i = 0, len = layout.length; i < len; i++) {
     if (layout[i].i === id) return layout[i];
   }
@@ -176,13 +194,13 @@ export function getLayoutItem(layout: Layout, id: string): ?LayoutItem {
  * @param  {Object} layoutItem Layout item.
  * @return {Object|undefined}  A colliding layout item, or undefined.
  */
-export function getFirstCollision(layout: Layout, layoutItem: LayoutItem): ?LayoutItem {
+export function getFirstCollision(layout: Layout, layoutItem: LayoutItem) : ? LayoutItem {
   for (let i = 0, len = layout.length; i < len; i++) {
     if (collides(layout[i], layoutItem)) return layout[i];
   }
 }
 
-export function getAllCollisions(layout: Layout, layoutItem: LayoutItem): Array<LayoutItem> {
+export function getAllCollisions(layout: Layout, layoutItem: LayoutItem) : Array < LayoutItem > {
   return layout.filter((l) => collides(l, layoutItem));
 }
 
@@ -191,9 +209,9 @@ export function getAllCollisions(layout: Layout, layoutItem: LayoutItem): Array<
  * @param  {Array} layout Array of layout objects.
  * @return {Array}        Array of static layout items..
  */
-export function getStatics(layout: Layout): Array<LayoutItem> {
-    //return [];
-    return layout.filter((l) => l.static);
+export function getStatics(layout: Layout): Array < LayoutItem > {
+  //return [];
+  return layout.filter((l) => l.static);
 }
 
 /**
@@ -259,7 +277,7 @@ export function moveElement(layout: Layout, l: LayoutItem, x: Number, y: Number,
  *                                   by the user.
  */
 export function moveElementAwayFromCollision(layout: Layout, collidesWith: LayoutItem,
-                                             itemToMove: LayoutItem, isUserAction: ?boolean): Layout {
+  itemToMove: LayoutItem, isUserAction: ? boolean): Layout {
 
   // If there is enough space above the collision to put this element, move it there.
   // We only do this on the main collision as this can get funky in cascades and cause
@@ -318,28 +336,28 @@ export function setTransform(top, left, width, height): Object {
  * @returns {{transform: string, WebkitTransform: string, MozTransform: string, msTransform: string, OTransform: string, width: string, height: string, position: string}}
  */
 export function setTransformRtl(top, right, width, height): Object {
-    // Replace unitless items with px
-    const translate = "translate3d(" + right * -1 + "px," + top + "px, 0)";
-    return {
-        transform: translate,
-        WebkitTransform: translate,
-        MozTransform: translate,
-        msTransform: translate,
-        OTransform: translate,
-        width: width + "px",
-        height: height + "px",
-        position: 'absolute'
-    };
+  // Replace unitless items with px
+  const translate = "translate3d(" + right * -1 + "px," + top + "px, 0)";
+  return {
+    transform: translate,
+    WebkitTransform: translate,
+    MozTransform: translate,
+    msTransform: translate,
+    OTransform: translate,
+    width: width + "px",
+    height: height + "px",
+    position: 'absolute'
+  };
 }
 
 export function setTopLeft(top, left, width, height): Object {
-    return {
-        top: top + "px",
-        left: left + "px",
-        width: width + "px",
-        height: height + "px",
-        position: 'absolute'
-    };
+  return {
+    top: top + "px",
+    left: left + "px",
+    width: width + "px",
+    height: height + "px",
+    position: 'absolute'
+  };
 }
 /**
  * Just like the setTopLeft method, but instead, it will return a right property instead of left.
@@ -351,13 +369,13 @@ export function setTopLeft(top, left, width, height): Object {
  * @returns {{top: string, right: string, width: string, height: string, position: string}}
  */
 export function setTopRight(top, right, width, height): Object {
-    return {
-        top: top + "px",
-        right: right+ "px",
-        width: width + "px",
-        height: height + "px",
-        position: 'absolute'
-    };
+  return {
+    top: top + "px",
+    right: right + "px",
+    width: width + "px",
+    height: height + "px",
+    position: 'absolute'
+  };
 }
 
 
@@ -368,7 +386,7 @@ export function setTopRight(top, right, width, height): Object {
  * @return {Array}        Layout, sorted static items first.
  */
 export function sortLayoutItemsByRowCol(layout: Layout): Layout {
-  return [].concat(layout).sort(function(a, b) {
+  return [].concat(layout).sort(function (a, b) {
     if (a.y > b.y || (a.y === b.y && a.x > b.x)) {
       return 1;
     }
@@ -456,7 +474,7 @@ export function validateLayout(layout: Layout, contextName: string): void {
     }
     if (item.i && typeof item.i !== 'string') {
       // number is also ok, so comment the error
-        // TODO confirm if commenting the line below doesn't cause unexpected problems
+      // TODO confirm if commenting the line below doesn't cause unexpected problems
       // throw new Error('VueGridLayout: ' + contextName + '[' + i + '].i must be a string!');
     }
     if (item.static !== undefined && typeof item.static !== 'boolean') {
@@ -466,7 +484,7 @@ export function validateLayout(layout: Layout, contextName: string): void {
 }
 
 // Flow can't really figure this out, so we just use Object
-export function autoBindHandlers(el: Object, fns: Array<string>): void {
+export function autoBindHandlers(el: Object, fns: Array < string > ): void {
   fns.forEach((key) => el[key] = el[key].bind(el));
 }
 
@@ -478,53 +496,53 @@ export function autoBindHandlers(el: Object, fns: Array<string>): void {
  * @returns {string}
  */
 export function createMarkup(obj) {
-    var keys = Object.keys(obj);
-    if (!keys.length) return '';
-    var i, len = keys.length;
-    var result = '';
+  var keys = Object.keys(obj);
+  if (!keys.length) return '';
+  var i, len = keys.length;
+  var result = '';
 
-    for (i = 0; i < len; i++) {
-        var key = keys[i];
-        var val = obj[key];
-        result += hyphenate(key) + ':' + addPx(key, val) + ';';
-    }
+  for (i = 0; i < len; i++) {
+    var key = keys[i];
+    var val = obj[key];
+    result += hyphenate(key) + ':' + addPx(key, val) + ';';
+  }
 
-    return result;
+  return result;
 }
 
 
 /* The following list is defined in React's core */
 export var IS_UNITLESS = {
-    animationIterationCount: true,
-    boxFlex: true,
-    boxFlexGroup: true,
-    boxOrdinalGroup: true,
-    columnCount: true,
-    flex: true,
-    flexGrow: true,
-    flexPositive: true,
-    flexShrink: true,
-    flexNegative: true,
-    flexOrder: true,
-    gridRow: true,
-    gridColumn: true,
-    fontWeight: true,
-    lineClamp: true,
-    lineHeight: true,
-    opacity: true,
-    order: true,
-    orphans: true,
-    tabSize: true,
-    widows: true,
-    zIndex: true,
-    zoom: true,
+  animationIterationCount: true,
+  boxFlex: true,
+  boxFlexGroup: true,
+  boxOrdinalGroup: true,
+  columnCount: true,
+  flex: true,
+  flexGrow: true,
+  flexPositive: true,
+  flexShrink: true,
+  flexNegative: true,
+  flexOrder: true,
+  gridRow: true,
+  gridColumn: true,
+  fontWeight: true,
+  lineClamp: true,
+  lineHeight: true,
+  opacity: true,
+  order: true,
+  orphans: true,
+  tabSize: true,
+  widows: true,
+  zIndex: true,
+  zoom: true,
 
-    // SVG-related properties
-    fillOpacity: true,
-    stopOpacity: true,
-    strokeDashoffset: true,
-    strokeOpacity: true,
-    strokeWidth: true
+  // SVG-related properties
+  fillOpacity: true,
+  stopOpacity: true,
+  strokeDashoffset: true,
+  strokeOpacity: true,
+  strokeWidth: true
 };
 
 
@@ -535,11 +553,11 @@ export var IS_UNITLESS = {
  * @returns {*}
  */
 export function addPx(name, value) {
-    if(typeof value === 'number' && !IS_UNITLESS[ name ]) {
-        return value + 'px';
-    } else {
-        return value;
-    }
+  if (typeof value === 'number' && !IS_UNITLESS[name]) {
+    return value + 'px';
+  } else {
+    return value;
+  }
 }
 
 
@@ -553,23 +571,23 @@ export function addPx(name, value) {
 export var hyphenateRE = /([a-z\d])([A-Z])/g;
 
 export function hyphenate(str) {
-    return str.replace(hyphenateRE, '$1-$2').toLowerCase();
+  return str.replace(hyphenateRE, '$1-$2').toLowerCase();
 }
 
 
 export function findItemInArray(array, property, value) {
-    for (var i=0; i < array.length; i++)
-        if (array[i][property] == value)
-            return true;
+  for (var i = 0; i < array.length; i++)
+    if (array[i][property] == value)
+      return true;
 
-    return false;
+  return false;
 }
 
 export function findAndRemove(array, property, value) {
-    array.forEach(function (result, index) {
-        if (result[property] === value) {
-            //Remove from array
-            array.splice(index, 1);
-        }
-    });
+  array.forEach(function (result, index) {
+    if (result[property] === value) {
+      //Remove from array
+      array.splice(index, 1);
+    }
+  });
 }

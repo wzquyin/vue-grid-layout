@@ -373,8 +373,8 @@ export default {
       let newBreakpoint = getBreakpointFromWidth(this.breakpoints, this.width);
       let newCols = getColsFromBreakpoint(newBreakpoint, this.cols);
 
-    //  console.info(this.originalLayout);
-    //  console.info(this.responsiveLayouts);
+      //  console.info(this.originalLayout);
+
       console.info(newBreakpoint);
       // save actual layout in layouts
       if (this.lastBreakpoint != null && !this.layouts[this.lastBreakpoint])
@@ -383,7 +383,7 @@ export default {
       // Find or generate a new layout.
       let layout = findOrGenerateResponsiveLayout(
         this.originalLayout,
-        this.responsiveLayouts,
+        this.layouts,
         this.breakpoints,
         newBreakpoint,
         this.lastBreakpoint,
@@ -391,6 +391,7 @@ export default {
         this.verticalCompact
       );
 
+      this.$emit("responsive-update", newBreakpoint, layout);
       // Store the new layout.
       this.layouts[newBreakpoint] = layout;
 
@@ -407,7 +408,8 @@ export default {
     // clear all responsive layouts
     initResponsiveFeatures() {
       // clear layouts
-      this.layouts = {};
+      //this.layouts = {};
+      this.layouts = Object.assign({}, this.responsiveLayouts);
     },
 
     // find difference in layouts
