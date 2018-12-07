@@ -20,15 +20,22 @@
 </head>
 
 <body style="margin:0;">
-    <h1>Vue Grid Layout Example 1 - Basic</h1>
+
+    <div id="app" style="width: 100%;">
+        <!--<pre>{{ $data | json }}</pre>-->
+        <div style="    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 999;
+    background: #fff;
+    opacity: 0.4;">
+            <h1>Vue Grid Layout Example 1 - Basic</h1>
 
     <a href="https://github.com/wzquyin/vue-grid-layout">View project on Github</a>
     <br />
 
     <a href="06-responsive.html">Previous example: Responsive</a>
-    <div id="app" style="width: 100%;">
-        <!--<pre>{{ $data | json }}</pre>-->
-        <div>
             <div class="layoutJSON">
                 Displayed as
                 <code>[x, y, w, h]</code>:
@@ -41,14 +48,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="content">
-            <!--<button @click="decreaseWidth">Decrease Width</button> <button @click="increaseWidth">Increase Width</button> <button @click="addItem">Add an item</button>-->
-            <input type="checkbox" v-model="isDraggable" />
+               <input type="checkbox" v-model="isDraggable" />
             Draggable
             <input type="checkbox" v-model="isResizable" />
             Resizable
             <br />
+        </div>
+        <div id="content">
+            <!--<button @click="decreaseWidth">Decrease Width</button> <button @click="increaseWidth">Increase Width</button> <button @click="addItem">Add an item</button>-->
+         
             <grid-layout :layout.sync="layout" :row-height="rowHeight" :margin="margin" :is-draggable="isDraggable"
                 :is-resizable="isResizable" :vertical-compact="verticalCompact" :use-css-transforms="useCssTransforms"
                 :max-rows="maxRows" :responsive="responsive" :is-mirrored="isMirrored" :auto-size="autoSize"
