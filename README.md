@@ -159,6 +159,15 @@ Include the browser-ready bundle (download from [releases](https://github.com/wz
 
 ##### GridLayout
 
+
+* **isRowHeightFlex**
+    
+    * type: `Boolean`
+    * required: `false`
+    * default : `false`
+
+    When isRowHeightFlex is true,the grid rowHeight will automatic calculated, to keep all item will show on one screen  
+
 * **layout**
     
     * type: `Array`

@@ -4067,12 +4067,24 @@ var es6_array_sort = __webpack_require__("55dd");
 
 // @flow
 
-/*:: export type LayoutItemRequired = {w: number, h: number, x: number, y: number, i: string};*/
+/*:: export type LayoutItemRequired = {
+  w: number,
+  h: number,
+  x: number,
+  y: number,
+  i: string
+};*/
 
-/*:: export type LayoutItem = LayoutItemRequired &
-                         {minW?: number, minH?: number, maxW?: number, maxH?: number,
-                          moved?: boolean, static?: boolean,
-                          isDraggable?: ?boolean, isResizable?: ?boolean};*/
+/*:: export type LayoutItem = LayoutItemRequired & {
+  minW ? : number,
+  minH ? : number,
+  maxW ? : number,
+  maxH ? : number,
+  moved ? : boolean,
+  static ? : boolean,
+  isDraggable ? : ? boolean,
+  isResizable ? : ? boolean
+};*/
 
 // export type Position = {left: number, top: number, width: number, height: number};
 
@@ -4086,7 +4098,7 @@ export type DragCallbackData = {
 */
 // export type DragEvent = {e: Event} & DragCallbackData;
 
-/*:: export type Layout = Array<LayoutItem>;*/
+/*:: export type Layout = Array < LayoutItem > ;*/
 
 // export type ResizeEvent = {e: Event, node: HTMLElement, size: Size};
 // const isProduction = process.env.NODE_ENV === 'production';
@@ -4098,7 +4110,10 @@ export type DragCallbackData = {
  * @return {Number}       Bottom coordinate.
  */
 
-/*:: export type Size = {width: number, height: number};*/
+/*:: export type Size = {
+  width: number,
+  height: number
+};*/
 
 function bottom(layout
 /*: Layout*/
@@ -4249,7 +4264,9 @@ function compactItem(compareWith
 function correctBounds(layout
 /*: Layout*/
 , bounds
-/*: {cols: number}*/
+/*: {
+  cols: number
+}*/
 )
 /*: Layout*/
 {
@@ -4289,7 +4306,7 @@ function getLayoutItem(layout
 , id
 /*: string*/
 )
-/*: ?LayoutItem*/
+/*: ? LayoutItem*/
 {
   for (var i = 0, len = layout.length; i < len; i++) {
     if (layout[i].i === id) return layout[i];
@@ -4309,7 +4326,7 @@ function getFirstCollision(layout
 , layoutItem
 /*: LayoutItem*/
 )
-/*: ?LayoutItem*/
+/*: ? LayoutItem*/
 {
   for (var i = 0, len = layout.length; i < len; i++) {
     if (collides(layout[i], layoutItem)) return layout[i];
@@ -4320,7 +4337,7 @@ function getAllCollisions(layout
 , layoutItem
 /*: LayoutItem*/
 )
-/*: Array<LayoutItem>*/
+/*: Array < LayoutItem >*/
 {
   return layout.filter(function (l) {
     return collides(l, layoutItem);
@@ -4335,7 +4352,7 @@ function getAllCollisions(layout
 function getStatics(layout
 /*: Layout*/
 )
-/*: Array<LayoutItem>*/
+/*: Array < LayoutItem >*/
 {
   //return [];
   return layout.filter(function (l) {
@@ -4417,7 +4434,7 @@ function moveElementAwayFromCollision(layout
 , itemToMove
 /*: LayoutItem*/
 , isUserAction
-/*: ?boolean*/
+/*: ? boolean*/
 )
 /*: Layout*/
 {
@@ -4657,7 +4674,7 @@ function validateLayout(layout
 function autoBindHandlers(el
 /*: Object*/
 , fns
-/*: Array<string>*/
+/*: Array < string >*/
 )
 /*: void*/
 {
@@ -5813,12 +5830,12 @@ var component = normalizeComponent(
 
 component.options.__file = "GridItem.vue"
 /* harmony default export */ var GridItem = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e182b134-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/GridLayout.vue?vue&type=template&id=6c36d3d0&
-var GridLayoutvue_type_template_id_6c36d3d0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"item",staticClass:"vue-grid-layout",style:(_vm.mergedStyle)},[_vm._t("default"),_c('grid-item',{directives:[{name:"show",rawName:"v-show",value:(_vm.isDragging),expression:"isDragging"}],staticClass:"vue-grid-placeholder",attrs:{"x":_vm.placeholder.x,"y":_vm.placeholder.y,"w":_vm.placeholder.w,"h":_vm.placeholder.h,"i":_vm.placeholder.i}})],2)}
-var GridLayoutvue_type_template_id_6c36d3d0_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e182b134-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/GridLayout.vue?vue&type=template&id=61d4d29d&
+var GridLayoutvue_type_template_id_61d4d29d_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"item",staticClass:"vue-grid-layout",style:(_vm.mergedStyle)},[_vm._t("default"),_c('grid-item',{directives:[{name:"show",rawName:"v-show",value:(_vm.isDragging),expression:"isDragging"}],staticClass:"vue-grid-placeholder",attrs:{"x":_vm.placeholder.x,"y":_vm.placeholder.y,"w":_vm.placeholder.w,"h":_vm.placeholder.h,"i":_vm.placeholder.i}})],2)}
+var GridLayoutvue_type_template_id_61d4d29d_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/GridLayout.vue?vue&type=template&id=6c36d3d0&
+// CONCATENATED MODULE: ./src/components/GridLayout.vue?vue&type=template&id=61d4d29d&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
 var es6_object_assign = __webpack_require__("f751");
@@ -6055,6 +6072,10 @@ var elementResizeDetectorMaker = __webpack_require__("eec4");
       type: Number,
       default: Infinity
     },
+    isRowHeightFlex: {
+      type: Boolean,
+      default: false
+    },
     margin: {
       type: Array,
       default: function _default() {
@@ -6126,6 +6147,7 @@ var elementResizeDetectorMaker = __webpack_require__("eec4");
       mergedStyle: {},
       lastLayoutLength: 0,
       isDragging: false,
+      flexRowCount: 0,
       placeholder: {
         x: 0,
         y: 0,
@@ -6365,6 +6387,19 @@ var elementResizeDetectorMaker = __webpack_require__("eec4");
         this.updateHeight();
       }
 
+      if (this.isRowHeightFlex) {
+        var rowCount = 0;
+
+        for (var i = 0; i < this.layout.length; i++) {
+          if (this.layout[i].y + this.layout[i].h > rowCount) rowCount = this.layout[i].y + this.layout[i].h;
+        }
+
+        console.log(rowCount);
+        this.flexRowCount = rowCount;
+        this.rowHeight = (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) / this.flexRowCount;
+        this.eventBus.$emit("setRowHeight", this.rowHeight);
+      }
+
       if (eventName === "resizeend") this.$emit("layout-updated", this.layout);
     },
     // finds or generates new layouts for set breakpoints
@@ -6376,12 +6411,12 @@ var elementResizeDetectorMaker = __webpack_require__("eec4");
 
       if (this.lastBreakpoint != null && !this.layouts[this.lastBreakpoint]) this.layouts[this.lastBreakpoint] = cloneLayout(this.layout); // Find or generate a new layout.
 
-      var layout = findOrGenerateResponsiveLayout(this.originalLayout, this.layouts, this.breakpoints, newBreakpoint, this.lastBreakpoint, newCols, this.verticalCompact); // Store the new layout.
+      var layout = findOrGenerateResponsiveLayout(this.originalLayout, this.layouts, this.breakpoints, newBreakpoint, this.lastBreakpoint, newCols, this.verticalCompact);
+      this.$emit("responsive-update", newBreakpoint, layout); // Store the new layout.
 
       this.layouts[newBreakpoint] = layout; // new prop sync
 
       this.$emit("update:layout", layout);
-      this.$emit("responsive-update", this.layouts, newBreakpoint);
       this.lastBreakpoint = newBreakpoint;
       this.eventBus.$emit("setColNum", getColsFromBreakpoint(newBreakpoint, this.cols));
     },
@@ -6426,8 +6461,8 @@ var GridLayoutvue_type_style_index_0_lang_css_ = __webpack_require__("e279");
 
 var GridLayout_component = normalizeComponent(
   components_GridLayoutvue_type_script_lang_js_,
-  GridLayoutvue_type_template_id_6c36d3d0_render,
-  GridLayoutvue_type_template_id_6c36d3d0_staticRenderFns,
+  GridLayoutvue_type_template_id_61d4d29d_render,
+  GridLayoutvue_type_template_id_61d4d29d_staticRenderFns,
   false,
   null,
   null,

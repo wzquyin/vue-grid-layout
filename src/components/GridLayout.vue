@@ -71,6 +71,10 @@ export default {
       type: Number,
       default: Infinity
     },
+    isRowHeightFlex: {
+      type: Boolean,
+      default: false
+    },
     margin: {
       type: Array,
       default: function() {
@@ -130,6 +134,7 @@ export default {
       mergedStyle: {},
       lastLayoutLength: 0,
       isDragging: false,
+      flexRowCount: 0,
       placeholder: {
         x: 0,
         y: 0,
@@ -289,6 +294,7 @@ export default {
       ) {
         this.width = this.$refs.item.offsetWidth;
       }
+
       this.eventBus.$emit("resizeEvent");
     },
     containerHeight: function() {
@@ -364,7 +370,20 @@ export default {
         this.eventBus.$emit("compact");
         this.updateHeight();
       }
+      if (this.isRowHeightFlex) {
+        let rowCount = 0;
+        for (let i = 0; i < this.layout.length; i++) {
+          if (this.layout[i].y + this.layout[i].h > rowCount)
+            rowCount = this.layout[i].y + this.layout[i].h;
+        }
+        console.log(rowCount);
+        this.flexRowCount = rowCount;
 
+        this.rowHeight =
+          (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) /
+          this.flexRowCount;
+        this.eventBus.$emit("setRowHeight", this.rowHeight);
+      }
       if (eventName === "resizeend") this.$emit("layout-updated", this.layout);
     },
 

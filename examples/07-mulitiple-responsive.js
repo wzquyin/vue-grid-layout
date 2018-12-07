@@ -297,6 +297,7 @@ new Vue({
         index: 0,
         colNum: 48,
         rowHeight: 45,
+        isRowHeightFlex: true,
         maxRows: 50000,
         margin: [5, 5],
         isDraggable: true,
