@@ -134,6 +134,7 @@ export default {
       mergedStyle: {},
       lastLayoutLength: 0,
       isDragging: false,
+      height: null,
       flexRowCount: 0,
       placeholder: {
         x: 0,
@@ -210,6 +211,15 @@ export default {
         this.updateHeight();
       });
     },
+    height: function() {
+      this.$nextTick(function() {
+        //this.$broadcast("updateWidth", this.width);
+        if (this.isRowHeightFlex) {
+          this.computeFlexRowCount(this.layout);
+          this.flexRowHeight();
+        }
+      });
+    },
     layout: function() {
       this.layoutUpdate();
     },
@@ -276,25 +286,32 @@ export default {
           this.lastLayoutLength = this.layout.length;
           this.initResponsiveFeatures();
         }
-        if (this.isRowHeightFlex) {
-          let rowCount = 0;
-          for (let i = 0; i < this.layout.length; i++) {
-            if (this.layout[i].y + this.layout[i].h > rowCount)
-              rowCount = this.layout[i].y + this.layout[i].h;
-          }
 
-          this.flexRowCount = rowCount;
-
-          this.rowHeight =
-            (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) /
-            this.flexRowCount;
-          this.eventBus.$emit("setRowHeight", this.rowHeight);
-        }
         compact(this.layout, this.verticalCompact);
         this.eventBus.$emit("updateWidth", this.width);
 
-        this.updateHeight();
+        this.flexRowHeight();
       }
+    },
+    computeFlexRowCount: function(layout) {
+      if (this.isRowHeightFlex) {
+        let rowCount = 0;
+        for (let i = 0; i < layout.length; i++) {
+          if (layout[i].y + layout[i].h > rowCount)
+            rowCount = layout[i].y + layout[i].h;
+        }
+
+        this.flexRowCount = rowCount;
+      }
+    },
+    flexRowHeight: function() {
+      if (this.isRowHeightFlex) {
+        this.rowHeight =
+          (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) /
+          this.flexRowCount;
+        this.eventBus.$emit("setRowHeight", this.rowHeight);
+      }
+      this.updateHeight();
     },
     updateHeight: function() {
       console.log("__" + this.containerHeight());
@@ -310,7 +327,8 @@ export default {
       ) {
         this.width = this.$refs.item.offsetWidth;
       }
-
+      console.log("windowresize");
+      this.height = window.innerHeight;
       this.eventBus.$emit("resizeEvent");
     },
     containerHeight: function() {
@@ -348,12 +366,16 @@ export default {
       l.y = y;
       // Move the element to the dragged location.
       this.layout = moveElement(this.layout, l, x, y, true);
+
       compact(this.layout, this.verticalCompact);
       // needed because vue can't detect changes on array element properties
       this.eventBus.$emit("compact");
 
       this.updateHeight();
-      if (eventName === "dragend") this.$emit("layout-updated", this.layout);
+
+      if (eventName === "dragend") {
+        this.$emit("layout-updated", this.layout);
+      }
     },
     resizeEvent: function(eventName, id, x, y, h, w) {
       if (eventName === "resizestart" || eventName === "resizemove") {
@@ -418,8 +440,10 @@ export default {
       this.$emit("responsive-update", newBreakpoint, layout);
       // Store the new layout.
       this.layouts[newBreakpoint] = layout;
+      this.computeFlexRowCount(layout);
 
       // new prop sync
+
       this.$emit("update:layout", layout);
 
       this.lastBreakpoint = newBreakpoint;
