@@ -294,7 +294,6 @@ export default {
             this.flexRowCount;
           this.eventBus.$emit("setRowHeight", this.rowHeight);
         }
-
         this.updateHeight();
       }
     },
