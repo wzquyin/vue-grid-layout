@@ -206,6 +206,7 @@ export default {
       this.$nextTick(function() {
         //this.$broadcast("updateWidth", this.width);
         this.eventBus.$emit("updateWidth", this.width);
+
         this.updateHeight();
       });
     },
@@ -278,10 +279,27 @@ export default {
 
         compact(this.layout, this.verticalCompact);
         this.eventBus.$emit("updateWidth", this.width);
+
+        if (this.isRowHeightFlex) {
+          let rowCount = 0;
+          for (let i = 0; i < this.layout.length; i++) {
+            if (this.layout[i].y + this.layout[i].h > rowCount)
+              rowCount = this.layout[i].y + this.layout[i].h;
+          }
+          console.log(rowCount);
+          this.flexRowCount = rowCount;
+
+          this.rowHeight =
+            (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) /
+            this.flexRowCount;
+          this.eventBus.$emit("setRowHeight", this.rowHeight);
+        }
+
         this.updateHeight();
       }
     },
     updateHeight: function() {
+      console.log("__" + this.containerHeight());
       this.mergedStyle = {
         height: this.containerHeight()
       };
@@ -335,6 +353,7 @@ export default {
       compact(this.layout, this.verticalCompact);
       // needed because vue can't detect changes on array element properties
       this.eventBus.$emit("compact");
+
       this.updateHeight();
       if (eventName === "dragend") this.$emit("layout-updated", this.layout);
     },
@@ -368,22 +387,10 @@ export default {
       } else {
         compact(this.layout, this.verticalCompact);
         this.eventBus.$emit("compact");
+
         this.updateHeight();
       }
-      if (this.isRowHeightFlex) {
-        let rowCount = 0;
-        for (let i = 0; i < this.layout.length; i++) {
-          if (this.layout[i].y + this.layout[i].h > rowCount)
-            rowCount = this.layout[i].y + this.layout[i].h;
-        }
-        console.log(rowCount);
-        this.flexRowCount = rowCount;
 
-        this.rowHeight =
-          (window.innerHeight - (this.flexRowCount + 1) * this.margin[1]) /
-          this.flexRowCount;
-        this.eventBus.$emit("setRowHeight", this.rowHeight);
-      }
       if (eventName === "resizeend") this.$emit("layout-updated", this.layout);
     },
 
