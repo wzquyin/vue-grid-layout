@@ -276,17 +276,13 @@ export default {
           this.lastLayoutLength = this.layout.length;
           this.initResponsiveFeatures();
         }
-
-        compact(this.layout, this.verticalCompact);
-        this.eventBus.$emit("updateWidth", this.width);
-
         if (this.isRowHeightFlex) {
           let rowCount = 0;
           for (let i = 0; i < this.layout.length; i++) {
             if (this.layout[i].y + this.layout[i].h > rowCount)
               rowCount = this.layout[i].y + this.layout[i].h;
           }
-          console.log(rowCount);
+
           this.flexRowCount = rowCount;
 
           this.rowHeight =
@@ -294,6 +290,8 @@ export default {
             this.flexRowCount;
           this.eventBus.$emit("setRowHeight", this.rowHeight);
         }
+        compact(this.layout, this.verticalCompact);
+        this.eventBus.$emit("updateWidth", this.width);
 
         this.updateHeight();
       }
